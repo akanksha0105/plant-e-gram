@@ -12,7 +12,7 @@ const Signup = () => {
 		name: "",
 		emailId: "",
 		password: "",
-		username: "",
+		// username: "",
 	});
 
 	const [errors, setErrors] = useState({});
