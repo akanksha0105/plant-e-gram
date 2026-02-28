@@ -18,15 +18,18 @@ app.use(express.json());
 app.use(cookieParser());
 
 const authRouter = require("./routes/auth");
-const profileRouter = require("./routes/profile");
-const identifyRouter = require("./routes/identify");
-app.use("/", authRouter);
-app.use("/", identifyRouter);
+
+const userRouter = require("./routes/user");
+app.use("/auth", authRouter);
+app.use("/user", userRouter);
+
 const server = http.createServer(app);
+const PORT = process.env.PORT || 7777;
+
 connectDB()
 	.then(() => {
 		console.log("Database connection established...");
-		server.listen(process.env.PORT || 7777, () => {
+		server.listen(PORT, () => {
 			console.log("Server is successfully listening on port 7777...");
 		});
 	})
