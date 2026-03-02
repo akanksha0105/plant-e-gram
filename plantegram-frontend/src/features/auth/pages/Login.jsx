@@ -31,23 +31,34 @@ export default function Login() {
 	};
 
 	return (
-		<div className='min-h-screen flex items-center justify-center px-4'>
-			<div className='w-full max-w-lg'>
+		<div className='min-h-screen flex justify-center px-4 pt-[20vh]'>
+			<div className='w-full max-[395px]:min-w-0 min-[396px]:min-w-[28rem] min-[396px]:max-w-[32rem]'>
 				{/* Card */}
-				<div className='rounded-2xl shadow-xl p-8 sm:p-10 border border-gray-100'>
+				<div className='rounded-2xl  p-8 sm:p-10'>
 					<h2 className='text-3xl font-semibold text-center mb-8'>
 						Welcome Back
 					</h2>
 
-					<form onSubmit={handleLogin} className='space-y-6'>
+					<form onSubmit={handleLogin} className='space-y-9'>
 						<input
 							name='emailId'
 							type='email'
 							placeholder='Email'
 							value={formData.emailId}
 							onChange={handleChange}
-							className='w-full px-5 py-4 text-base bg-white border border-gray-300 rounded-xl 
-							focus:outline-none focus:ring-2 focus:ring-orange-300'
+							className='
+								w-full
+								py-3
+								text-lg
+								bg-transparent
+								border-0
+								border-b
+								border-gray-300
+								focus:border-black
+								focus:outline-none
+								transition-colors
+								duration-300
+							'
 						/>
 
 						<input
@@ -56,8 +67,20 @@ export default function Login() {
 							placeholder='Password'
 							value={formData.password}
 							onChange={handleChange}
-							className='w-full px-5 py-4 text-base bg-white border border-gray-300 rounded-xl 
-							focus:outline-none focus:ring-2 focus:ring-orange-300'
+							className='
+								peer
+								w-full
+								py-3
+								text-lg
+								bg-transparent
+								border-0
+								border-b
+								border-gray-300
+								focus:border-black
+								focus:outline-none
+								transition-colors
+								duration-300
+							'
 						/>
 
 						<button
@@ -75,7 +98,7 @@ export default function Login() {
 				</div>
 
 				{/* Signup */}
-				<div className='mt-6 text-center'>
+				<div className='mt-3 text-center'>
 					<span className='text-base text-gray-600'>
 						Don't have an account?
 					</span>{" "}
