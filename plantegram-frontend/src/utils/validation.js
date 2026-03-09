@@ -39,13 +39,6 @@ export const validateField = (name, value) => {
 
 			return "";
 
-		// case "username":
-		// 	if (!value) return "Username is required";
-
-		// 	if (value.length < 3) return "Username must be at least 3 characters";
-
-		// 	return "";
-
 		default:
 			return "";
 	}
