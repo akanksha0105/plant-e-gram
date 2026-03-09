@@ -2,6 +2,7 @@ const validator = require("validator");
 
 const validateSignUpData = (req) => {
 	const { name, emailId, password } = req.body;
+
 	if (!name) {
 		throw new Error("Name is not valid!");
 	} else if (!validator.isEmail(emailId)) {
