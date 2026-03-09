@@ -24,9 +24,9 @@ export default function Login() {
 		e.preventDefault();
 		try {
 			await dispatch(loginUser(formData)).unwrap();
-			navigate("/garden", { replace: true });
+			navigate("/garden-board", { replace: true });
 		} catch (err) {
-			console.log("Login failed:", err);
+			console.error("Login failed:", err);
 		}
 	};
 
