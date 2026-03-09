@@ -1,13 +1,11 @@
 import Hero from "../features/landing/components/Hero";
-import Navbar from "../shared/components/Navbar";
+import Navbar from "../shared/components/Navbar/Navbar";
 
-const Landing = () => {
-	return (
-		<>
-			<Navbar />
-			<Hero />
-		</>
-	);
-};
+const Landing = () => (
+	<div>
+		<Navbar />
 
+		<Hero />
+	</div>
+);
 export default Landing;

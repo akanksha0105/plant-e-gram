@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import Plants from "../pages/Plants";
-import Garden from "../pages/Garden";
+import Garden from "../features/garden/pages/GardenBoard";
 import Landing from "../pages/Landing";
 import AuthLayout from "../features/auth/pages/AuthLayout";
 import Login from "../features/auth/pages/Login";
@@ -8,6 +7,8 @@ import Signup from "../features/auth/pages/Signup";
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
 import MainLayout from "../layouts/MainLayout";
+import PlantProfile from "../features/plants/PlantProfile";
+import SavedPlantsPage from "../features/plants/SavedPlants";
 
 const router = createBrowserRouter([
 	{
@@ -33,9 +34,9 @@ const router = createBrowserRouter([
 			{
 				element: <MainLayout />,
 				children: [
-					{ path: "/garden", element: <Garden /> },
-					{ path: "/plants", element: <Plants /> },
-					// { path: "/plants/:id", element: <PlantProfile /> },
+					{ path: "/garden-board", element: <Garden /> },
+					{ path: "/saved-plants", element: <SavedPlantsPage /> },
+					{ path: "/plants/:plantId", element: <PlantProfile /> },
 				],
 			},
 		],

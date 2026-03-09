@@ -1,32 +1,23 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-// import Monstera from "../../assets/Monstera.png";
-import Monstera from "../../assets/hero_image.jpg";
 import { getPlantProfile } from "../plantIdentification/plantSlice";
 
 const PlantProfile = () => {
 	const { plantId } = useParams();
-	console.log("PARAM ID:", plantId);
+
 	const dispatch = useDispatch();
 	const plant = useSelector((state) => state.plant.currentPlant);
-
+	const [imgHovered, setImgHovered] = useState(false);
 	useEffect(() => {
-		if (!plant || plant._id !== plantId) {
+		if (!plantId) return;
+
+		if (!plant || String(plant._id) !== String(plantId)) {
 			dispatch(getPlantProfile(plantId));
 		}
-	}, [plantId]);
+	}, [plantId, plant?._id, dispatch]);
 
 	if (!plant) return <div>Loading...</div>;
-	const [imgHovered, setImgHovered] = useState(false);
-	// const plant = {
-	// 	scientificName: "Monstera Deliciosa",
-	// 	commonName: "AKA Swiss Cheese Plant",
-	// 	description:
-	// 		"Originally from the rain forests of Central and South America, where they climb up trees to reach higher light levels, consequently sturdy support is essential as stems can reach a height of 20' or more. They are easy to grow and with proper care, leaves of up to 45cm (18\") across can be achieved!",
-	// 	// image:
-	// 	// 	"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Monstera_deliciosa_cv_variegata.jpg/800px-Monstera_deliciosa_cv_variegata.jpg",
-	// };
 
 	return (
 		<>
@@ -41,8 +32,7 @@ const PlantProfile = () => {
 					{/* LEFT — Plant Image */}
 					<div className='flex-1 flex justify-center items-end relative w-[500px] h-[600px] shrink-0 overflow-hidden'>
 						<img
-							// src={plant.image}
-							src={Monstera}
+							src={plant.image}
 							alt={plant.scientificName}
 							onMouseEnter={() => setImgHovered(true)}
 							onMouseLeave={() => setImgHovered(false)}
@@ -76,17 +66,6 @@ const PlantProfile = () => {
 						<p className='font-jost text-[14.5px] leading-relaxed text-[#4a4a4a] font-light max-w-md mb-10'>
 							{plant.description}
 						</p>
-
-						{/* Links
-						<div className='flex gap-9'>
-							{["More Info", "A–Z Index"].map((label) => (
-								<button
-									key={label}
-									className='font-jost text-[11px] tracking-[3px] uppercase font-semibold text-[#1a1a1a] pb-1.5 border-b-2 border-[#3a7a40] hover:text-[#3a7a40] transition-colors'>
-									{label}
-								</button>
-							))}
-						</div> */}
 					</div>
 				</div>
 			</div>
@@ -95,7 +74,3 @@ const PlantProfile = () => {
 };
 
 export default PlantProfile;
-
-{
-	/* TODO:Image carousel */
-}

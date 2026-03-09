@@ -6,9 +6,8 @@ import { useDispatch } from "react-redux";
 import { fetchCurrentUser } from "./features/user/userSlice";
 
 const App = () => {
-	// TODO: Implement the Auth for the initial load of the App
 	const dispatch = useDispatch();
-
+	
 	useEffect(() => {
 		dispatch(fetchCurrentUser());
 	}, []);
