@@ -26,10 +26,12 @@ authRouter.post("/signup", async (req, res) => {
 
 		//save the user
 		const user = new User({
-			emailId,
 			password: passwordHash,
+			emailId,
 			profile: {
-				name: name,
+
+				
+				name,
 			},
 		});
 
@@ -43,14 +45,15 @@ authRouter.post("/signup", async (req, res) => {
 
 		res.json({
 			message: "User Added successfully!",
-			data: {
-				user: {
-					profile: savedUser?.profile,
-					myPlants: savedUser?.mypLants,
-				},
+
+			user: {
+				profile: savedUser?.profile,
+				savedPlants: savedUser?.savedPlants,
+				emailId: emailId,
 			},
 		});
 	} catch (err) {
+		console.error("Signup error: ", err);
 		res.status(400).json({
 			success: false,
 			error: err.message,
@@ -104,11 +107,11 @@ authRouter.post("/login", async (req, res) => {
 		res.status(200).json({
 			success: true,
 			message: "Login successful",
-			data: {
-				user: {
-					profile: savedUser?.profile,
-					myPlants: savedUser?.mypLants,
-				},
+
+			user: {
+				profile: savedUser?.profile,
+				savedPlants: savedUser?.savedPlants,
+				emailId,
 			},
 		});
 	} catch (err) {
