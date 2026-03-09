@@ -7,7 +7,7 @@ const openai = new OpenAI({
 const identifyPlant = async (images, model) => {
 	const content = [
 		{
-			type: "text",
+			type: "input_text",
 			text: `
 			
 			First analyze the image carefully before identifying the plant.
@@ -110,31 +110,47 @@ Native to South America, the Monstera is a tropical plant known for its large sp
 		input: [
 			{
 				role: "user",
-				content,
+				content: content,
 			},
 		],
 
-		response_format: {
-			type: "json_schema",
-			json_schema: {
+		text: {
+			format: {
+				type: "json_schema",
 				name: "plant_identification",
 				schema: {
 					type: "object",
 					properties: {
-						commonName: { type: "string" },
-						scientificName: { type: "string" },
-						confidence: { type: "number" },
-						description: { type: "string" },
-						error: { type: "string" },
-						reason: { type: "string" },
+						success: { type: "boolean" },
+						commonName: { type: ["string", "null"] },
+						scientificName: { type: ["string", "null"] },
+						confidence: { type: ["number", "null"] },
+						description: { type: ["string", "null"] },
+						error: { type: ["string", "null"] },
+						reason: { type: ["string", "null"] },
 					},
+					required: [
+						"success",
+						"commonName",
+						"scientificName",
+						"confidence",
+						"description",
+						"error",
+						"reason",
+					],
 					additionalProperties: false,
 				},
 			},
 		},
 	});
 
-	return response.output[0].content[0].json;
+	if (!response.output_parsed) {
+		return {
+			error: "Parsing failed",
+			reason: "Model did not return structured output",
+		};
+	}
+	return response.output_parsed;
 };
 
 module.exports = identifyPlant;
