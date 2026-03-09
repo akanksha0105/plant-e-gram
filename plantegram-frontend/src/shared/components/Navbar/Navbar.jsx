@@ -5,8 +5,6 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../../../features/auth/authSlice";
-import logo from "../../../assets/logo.png";
-
 import NavLogo from "./Navlogo";
 import { navigation } from "../../../utils/constants";
 import { PlantGreenLogo } from "../../../utils/icons";
@@ -113,7 +111,6 @@ const MobileMenu = ({ isOpen, onClose, links, isAuthenticated, onLogout }) => {
 	);
 };
 
-// ─── Main Component ───────────────────────────────────────────────────────────
 
 const Navbar = () => {
 	const { isAuthenticated } = useSelector((state) => state.auth);
@@ -130,7 +127,7 @@ const Navbar = () => {
 			<nav
 				aria-label='Main navigation'
 				className='flex items-center justify-between p-6 lg:px-8'>
-				<NavLogo logo={logo} brandName={"Plantegram"} />
+				<PlantGreenLogo />
 
 				{/* Hidden checkbox — drives the mobile menu open/close */}
 				<input
