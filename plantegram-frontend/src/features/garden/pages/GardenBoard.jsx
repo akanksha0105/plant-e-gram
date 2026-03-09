@@ -1,7 +1,8 @@
 import { useSelector } from "react-redux";
 
 import ImageUploader from "../components/ImageUploader";
-import savedplantsImage from "../../../assets/totalSavedplants.png";
+import savedplantsImage from "../../../assets/totalSavedPlants.png";
+
 import SavedPlantsStrip from "../components/SavedPlantsStrip";
 import DoubleCard from "../../../shared/components/DoubleCard";
 import { useNavigate } from "react-router-dom";
