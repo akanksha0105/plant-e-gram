@@ -1,12 +1,12 @@
+require("dotenv").config();
 const express = require("express");
 const connectDB = require("./config/database");
 const app = express();
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-const jwt = require("jsonwebtoken");
+const helmet = require("helmet");
+const morgan = require("morgan");
 const http = require("http");
-
-require("dotenv").config();
 
 app.use(
 	cors({
@@ -14,15 +14,19 @@ app.use(
 		credentials: true,
 	}),
 );
+app.use(helmet());
+app.use(morgan("dev"));
 app.use(express.json());
 app.use(cookieParser());
 
 const authRouter = require("./routes/auth");
-
 const userRouter = require("./routes/user");
+
+const plantRouter = require("./routes/plant");
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
 
+app.use("/plant", plantRouter);
 const server = http.createServer(app);
 const PORT = process.env.PORT || 7777;
 
