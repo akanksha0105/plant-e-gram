@@ -1,26 +1,42 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Rochester&display=swap');
 #root {
   min-height: 100vh;
   width: 100%;
-
 }
+
+/* LIGHT MODE */
 :root {
+  --color-bg: #EEF2EF;
+  --color-surface:#FFFFFF;
+  --color-card:  #F7F9F7;
+  --color-border: #E3E7E3;
 
+  --color-primary: #6E8F80;
+  --color-primary-hover: #5F7F71;
+  --color-accent: #8FAF9D;
 
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  --color-text-primary: #2E3432;
+  --color-text-secondary: #6B726F;
+  --color-text-muted: #9BA3A0;
+}
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+/* DARK MODE */
+.dark {
+  --color-bg: #1C2321;
+  --color-surface: #222B28;
+  --color-card: #26302D;
+  --color-border: #39423F;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --color-primary: #8FAF9D;
+  --color-primary-hover: #9EBDAA;
+  --color-accent: #A9C6B6;
+
+  --color-text-primary: #E6ECE9;
+  --color-text-secondary: #B7C1BC;
+  --color-text-muted: #8C9792;
 }
 
 a {
@@ -34,10 +50,9 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+
 }
 
 h1 {
