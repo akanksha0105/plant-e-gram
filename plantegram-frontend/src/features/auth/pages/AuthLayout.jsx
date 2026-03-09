@@ -1,23 +1,22 @@
 import { Outlet } from "react-router-dom";
+import login_image from "../../../assets/auth_background.png";
 
 const AuthLayout = () => {
 	return (
-		<div>
-			<div className='min-h-screen w-full flex items-center justify-center bg-gray-50'>
-				{" "}
-				<div className='min-h-screen bg-gray-50 flex items-center justify-center p-4'>
-					<div className='w-full max-w-sm'>
-						{/* Logo */}
-						<div className='text-center mb-8'>
-							<h1
-								className='text-5xl font-serif italic'
-								style={{ fontFamily: "Billabong, cursive" }}>
-								plant-e-gram
-							</h1>
-							<Outlet />
-						</div>
-					</div>
-				</div>
+		<div className='relative min-h-screen w-full flex items-center justify-center'>
+			{/* Background Image */}
+			<img
+				src={login_image}
+				alt='Background'
+				className='absolute inset-0 w-full h-full object-cover'
+			/>
+
+			{/* Optional Dark Overlay */}
+			<div className='absolute inset-0'></div>
+
+			{/* Login Content */}
+			<div className='relative z-10 w-full max-w-sm p-6'>
+				<Outlet />
 			</div>
 		</div>
 	);
