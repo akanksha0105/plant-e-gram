@@ -10,7 +10,7 @@ const http = require("http");
 
 app.use(
 	cors({
-		origin: "http://localhost:5173",
+		origin: process.env.FRONTEND_URL || "http://localhost:5173",
 		credentials: true,
 	}),
 );
@@ -27,6 +27,11 @@ app.use("/auth", authRouter);
 app.use("/user", userRouter);
 
 app.use("/plant", plantRouter);
+
+app.get("/health", (req, res) => {
+	res.status(200).json({ status: "ok" });
+});
+
 const server = http.createServer(app);
 const PORT = process.env.PORT || 7777;
 
@@ -34,7 +39,7 @@ connectDB()
 	.then(() => {
 		console.log("Database connection established...");
 		server.listen(PORT, () => {
-			console.log("Server is successfully listening on port 7777...");
+			console.log(`Server is successfully listening on port ${PORT}...`);
 		});
 	})
 	.catch((err) => {

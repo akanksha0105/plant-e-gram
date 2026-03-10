@@ -4,8 +4,6 @@ const User = require("../models/user");
 const userAuth = async (req, res, next) => {
 	try {
 		const { token } = req.cookies;
-		console.log("Token:", token);
-		console.log("JWT_SECRET:", process.env.JWT_SIGNATURE);
 		if (!token) {
 			return res.status(401).send("Please Login!");
 		}
