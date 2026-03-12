@@ -22,14 +22,17 @@ const GardenBoard = () => {
 					<ImageUploader />
 				</div>
 				<div className='flex-[1] flex flex-col gap-4'>
-					<div className='self-start w-full'>
-						<DoubleCard
-							image={lastIdentifiedPlant?.image}
-							header={lastIdentifiedPlant?.scientificName}
-							underlyingHeader={"Last Identified Plant"}
-							onClick={() => navigate(`/plants/${lastIdentifiedPlant._id}`)}
-						/>
-					</div>
+					{lastIdentifiedPlant && (
+						<div className='self-start w-full'>
+							<DoubleCard
+								image={lastIdentifiedPlant?.image}
+								header={lastIdentifiedPlant?.scientificName}
+								underlyingHeader={"Last Identified Plant"}
+								onClick={() => navigate(`/plants/${lastIdentifiedPlant._id}`)}
+							/>
+						</div>
+					)}
+
 					<div className='self-start w-full'>
 						<DoubleCard
 							image={savedplantsImage}
@@ -40,13 +43,15 @@ const GardenBoard = () => {
 				</div>
 			</div>
 
-			<div className='w-full'>
-				<SavedPlantsStrip
-					plants={savedPlantsSubset}
-					totalCount={totalSavedCount}
-					newestId={lastIdentifiedPlant?._id}
-				/>
-			</div>
+			{totalSavedCount > 0 && (
+				<div className='w-full'>
+					<SavedPlantsStrip
+						plants={savedPlantsSubset}
+						totalCount={totalSavedCount}
+						newestId={lastIdentifiedPlant?._id}
+					/>
+				</div>
+			)}
 		</div>
 	);
 };
