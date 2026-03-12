@@ -1,0 +1,76 @@
+name: Deploy Plant-e-gram to Azure
+
+# Trigger: runs on every push to master
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  # ─────────────────────────────────────────────
+  # Job 1: Deploy Backend to Azure App Service
+  # ─────────────────────────────────────────────
+  deploy-backend:
+    name: Deploy Backend
+    runs-on: ubuntu-latest
+
+    # Only run if backend files changed
+    # Remove this 'if' block if you always want both to deploy
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: plantegram-backend/package-lock.json
+
+      - name: Install dependencies
+        working-directory: plantegram-backend
+        run: npm ci
+
+      - name: Deploy to Azure App Service
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: plantegram-api
+          publish-profile: ${{ secrets.AZURE_BACKEND_PUBLISH_PROFILE }}
+          package: plantegram-backend
+
+  # ─────────────────────────────────────────────
+  # Job 2: Deploy Frontend to Azure Static Web Apps
+  # ─────────────────────────────────────────────
+  deploy-frontend:
+    name: Deploy Frontend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: plantegram-frontend/package-lock.json
+
+      - name: Install dependencies
+        working-directory: plantegram-frontend
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: plantegram-frontend
+        run: npm run build
+        env:
+          VITE_API_URL: https://plantegram-api.azurewebsites.net
+
+      - name: Deploy to Azure Static Web Apps
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_FRONTEND_DEPLOY_TOKEN }}
+          action: upload
+          app_location: plantegram-frontend/dist
+          skip_app_build: true
+          skip_api_build: true
