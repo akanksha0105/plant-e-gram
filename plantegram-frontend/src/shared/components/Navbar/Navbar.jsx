@@ -57,7 +57,7 @@ const MobileMenu = ({ isOpen, onClose, links, isAuthenticated, onLogout }) => {
 				<div className='flex items-center justify-between'>
 					<Link to='/' className='-m-1.5 p-1.5' onClick={onClose}>
 						<span className='sr-only'>Plantegram</span>
-						<PlantGreenLogo color='' />
+						<PlantGreenLogo width={80} height={60} className='text-primary' />
 					</Link>
 					<button
 						type='button'
@@ -111,7 +111,6 @@ const MobileMenu = ({ isOpen, onClose, links, isAuthenticated, onLogout }) => {
 	);
 };
 
-
 const Navbar = () => {
 	const { isAuthenticated } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
@@ -127,7 +126,7 @@ const Navbar = () => {
 			<nav
 				aria-label='Main navigation'
 				className='flex items-center justify-between p-6 lg:px-8'>
-				<PlantGreenLogo />
+				<PlantGreenLogo width={80} height={60} className='text-primary' />
 
 				{/* Hidden checkbox — drives the mobile menu open/close */}
 				<input
