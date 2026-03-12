@@ -10,7 +10,17 @@ const http = require("http");
 
 app.use(
 	cors({
-		origin: process.env.FRONTEND_URL || "http://localhost:5173",
+		origin: function (origin, callback) {
+			const allowedOrigins = (process.env.FRONTEND_URL || "http://localhost:5173")
+				.split(",")
+				.map((o) => o.trim());
+			// Allow requests with no origin (mobile apps, curl, health checks)
+			if (!origin || allowedOrigins.includes(origin)) {
+				callback(null, true);
+			} else {
+				callback(new Error("Not allowed by CORS"));
+			}
+		},
 		credentials: true,
 	}),
 );
