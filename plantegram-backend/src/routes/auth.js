@@ -96,7 +96,7 @@ authRouter.post("/login", async (req, res) => {
 		const cookieOptions = {
 			httpOnly: true,
 			secure: process.env.NODE_ENV === "production", // enable HTTPS only in production
-			sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
+			sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
 			expires: new Date(Date.now() + 8 * 60 * 60 * 1000), // 8 hours
 		};
 
