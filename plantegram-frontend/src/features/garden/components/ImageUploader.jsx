@@ -3,7 +3,7 @@ import { acceptedImageFormats } from "../../../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addSavedPlant } from "../../plants/savedPlantsSlice";
-import { identifyPlant } from "../../plantIdentification/plantSlice";
+import { identifyPlant } from "../gardenBoardSlice";
 
 const formatSize = (bytes) => {
 	if (bytes < 1024) return `${bytes} B`;
@@ -346,6 +346,7 @@ export default function ImageUploader() {
 
 						{files.some((f) => f.done) && (
 							<button
+								disabled={identifyLoading}
 								onClick={handlePlantIdentification}
 								className='w-full mt-5 py-4 bg-gradient-to-br from-[#4a7c3f] to-[#2e5c24] text-white border-none rounded-2xl font-serif text-lg cursor-pointer flex items-center justify-center gap-2.5 transition-all duration-200 shadow-lg hover:from-[#3b6432] hover:to-[#254d1c] hover:-translate-y-0.5 hover:shadow-2xl active:translate-y-0 tracking-wide'>
 								<svg width='20' height='20' viewBox='0 0 20 20' fill='none'>
@@ -357,8 +358,11 @@ export default function ImageUploader() {
 										strokeLinejoin='round'
 									/>
 								</svg>
-								Analyze {files.filter((f) => f.done).length} Plant Image
-								{files.filter((f) => f.done).length !== 1 ? "s" : ""}
+
+								{identifyLoading
+									? "Analyzing"
+									: `Analyze ${files.filter((f) => f.done).length} Plant Image
+								${files.filter((f) => f.done).length !== 1 ? "s" : ""}`}
 							</button>
 						)}
 					</>
