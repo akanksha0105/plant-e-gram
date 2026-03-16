@@ -20,7 +20,7 @@ export default function ImageUploader() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const emailId = useSelector((state) => state.user.emailId);
-
+	const { identifyLoading } = useSelector((state) => state.gardenBoard);
 	const addFiles = useCallback((incoming) => {
 		setError("");
 		const valid = [];
