@@ -1,10 +1,9 @@
-import { navigation } from "../utils/constants";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../shared/components/Sidebar";
 
 const MainLayout = () => {
-	const [activeState, setActiveState] = useState(navigation[0].label);
+	const [activeState, setActiveState] = useState(null);
 
 	return (
 		<div className='h-screen flex'>
