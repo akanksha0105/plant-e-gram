@@ -37,9 +37,8 @@ plantRouter.post(
 	userAuth,
 	upload.array("images", 5),
 	async (req, res, next) => {
-		console.log("identification", req.body.emailId);
 		try {
-			// ✅ Validate images
+			// Validate images
 			if (!req.files || req.files.length === 0) {
 				return res.status(400).json({
 					success: false,
@@ -47,7 +46,7 @@ plantRouter.post(
 				});
 			}
 
-			// ✅ Resize & compress before OpenAI (CRITICAL)
+			// Resize & compress before OpenAI (CRITICAL)
 			const processedFiles = await Promise.all(
 				req.files.map(async (file) => {
 					const resizedBuffer = await sharp(file.buffer)
@@ -105,9 +104,6 @@ plantRouter.post(
 				commonName: result.commonName,
 				scientificName: result.scientificName,
 			});
-
-			// const user = await User.findOne({ emailId: req.body.emailId });
-			const user = req.user;
 
 			const plantDoc = await Plant.create({
 				commonName: result.commonName,
