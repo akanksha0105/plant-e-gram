@@ -14,12 +14,10 @@ plantRouter.get("/:id", userAuth, async (req, res) => {
 	try {
 		const { id } = req.params;
 
-		// 1️⃣ Validate MongoDB ObjectId
 		if (!mongoose.Types.ObjectId.isValid(id)) {
 			return res.status(400).json({ message: "Invalid Plant ID" });
 		}
 
-		// 2️⃣ Find plant
 		const plant = await Plant.findById(id);
 
 		if (!plant) {
