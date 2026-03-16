@@ -15,7 +15,7 @@ const DesktopNavLinks = ({ links }) => (
 			<Link
 				key={item.label}
 				to={item.to}
-				className='text-sm/6 font-semibold text-gray-900 hover:text-gray-600 transition-colors duration-150'>
+				className='text-sm/6 font-semibold font-playfair text-gray-900 hover:text-gray-600 transition-colors duration-150'>
 				{item.label}
 			</Link>
 		))}
@@ -92,14 +92,14 @@ const MobileMenu = ({ isOpen, onClose, links, isAuthenticated, onLogout }) => {
 								<button
 									type='button'
 									onClick={handleLogout}
-									className='-mx-3 block bg-transparent w-full rounded-lg px-3 py-2.5 text-left text-base/7 font-semibold text-black hover:primaryHover transition-colors duration-150'>
+									className='-mx-3 block bg-transparent w-full rounded-lg px-3 py-2.5 text-left text-base/7 font-semibold font-playfair text-black hover:primaryHover transition-colors duration-150'>
 									Log out
 								</button>
 							) : (
 								<Link
 									to='/login'
 									onClick={onClose}
-									className='-mx-3 bg-transparent block rounded-lg px-3 py-2.5 text-base/7 font-semibold  text-black hover:primaryHover transition-colors duration-150'>
+									className='-mx-3 font-playfair bg-transparent block rounded-lg px-3 py-2.5 text-base/7 font-semibold  text-black hover:primaryHover transition-colors duration-150'>
 									Log in
 								</Link>
 							)}
@@ -175,7 +175,7 @@ const Navbar = () => {
 										<Link
 											key={item.label}
 											to={item.to}
-											className='-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50'>
+											className='-mx-3 block rounded-lg px-3 py-2 font-playfair text-base/7 font-semibold text-gray-900 hover:bg-gray-50'>
 											{item.label}
 										</Link>
 									))}
@@ -186,13 +186,16 @@ const Navbar = () => {
 									<button
 										type='button'
 										onClick={handleLogout}
-										className='-mx-3 block w-full text-left rounded-lg px-3 py-2.5 text-base/7 font-semibold text-black hover:bg-primaryHover'>
+										className='-mx-3 block w-full text-left rounded-lg px-3 py-2.5 text-base/7 font-semibold 
+							
+										font-playfair text-black
+										hover:bg-primaryHover'>
 										Log out
 									</button>
 								) : (
 									<Link
 										to='/login'
-										className='-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-black hover:bg-primaryHover'>
+										className='-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold font-playfair text-black hover:bg-primaryHover'>
 										Log in
 									</Link>
 								)}
