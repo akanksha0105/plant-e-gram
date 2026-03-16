@@ -12,6 +12,8 @@ export default {
 				primary: "var(--color-primary)",
 				primaryHover: "var(--color-primary-hover)",
 				accent: "var(--color-accent)",
+				textHeading: "var(--color-text-heading)",
+				textSubheading: "var(--color-text-subheading)",
 				textPrimary: "var(--color-text-primary)",
 				textSecondary: "var(--color-text-secondary)",
 				textMuted: "var(--color-text-muted)",
@@ -19,6 +21,7 @@ export default {
 			fontFamily: {
 				rochester: ['"Rochester"', "cursive"],
 				playfair: ['"Playfair Display"', "serif"],
+				montserrat: ["Montserrat", "sans-serif"],
 			},
 			keyframes: {
 				fadeSlideUp: {
