@@ -18,6 +18,7 @@ export default {
 			},
 			fontFamily: {
 				rochester: ['"Rochester"', "cursive"],
+				playfair: ['"Playfair Display"', "serif"],
 			},
 			keyframes: {
 				fadeSlideUp: {
