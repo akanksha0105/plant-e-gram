@@ -109,8 +109,9 @@ plantRouter.post(
 				userIds: [req.user._id],
 			});
 
-			await User.findByIdAndUpdate(user._id, {
+			await User.findByIdAndUpdate(req.user._id, {
 				$addToSet: { savedPlants: plantDoc._id },
+				$set: { lastIdentifiedPlant: plantDoc._id },
 			});
 
 			return res.json({

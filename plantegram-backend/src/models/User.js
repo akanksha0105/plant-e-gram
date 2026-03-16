@@ -24,6 +24,7 @@ const userSchema = new mongoose.Schema({
 		},
 	},
 	savedPlants: [{ type: mongoose.Schema.Types.ObjectId, ref: "Plant" }],
+	lastIdentifiedPlant: { type: mongoose.Schema.Types.ObjectId, ref: "Plant" },
 });
 
 userSchema.methods.getJWT = async function () {

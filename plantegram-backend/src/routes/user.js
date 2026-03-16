@@ -9,15 +9,7 @@ const SAVED_PLANTS_DISPLAY_LIMIT = 10;
 
 userRouter.get("/me", userAuth, async (req, res) => {
 	try {
-		const user = await User.findById(req.user._id)
-			.select("-password")
-			.populate({
-				path: "savedPlants",
-				select:
-					"commonName scientificName description image confidence identifiedAt createdAt",
-				options: { strictPopulate: false },
-			})
-			.lean();
+		const user = await User.findById(req.user._id).select("-password");
 
 		if (!user) {
 			return res.status(404).json({
@@ -25,11 +17,6 @@ userRouter.get("/me", userAuth, async (req, res) => {
 				error: "User not found",
 			});
 		}
-
-		const allSavedPlants = user.savedPlants || [];
-		const savedPlants = allSavedPlants.slice(0, SAVED_PLANTS_DISPLAY_LIMIT);
-		const lastIdentifiedPlant = savedPlants[0] || null;
-		const totalSavedCount = allSavedPlants.length;
 
 		return res.status(200).json({
 			success: true,
@@ -39,9 +26,6 @@ userRouter.get("/me", userAuth, async (req, res) => {
 					emailId: user.emailId,
 					profile: user.profile,
 				},
-				savedPlantsSubset: savedPlants,
-				lastIdentifiedPlant,
-				totalSavedCount,
 			},
 		});
 	} catch (err) {
