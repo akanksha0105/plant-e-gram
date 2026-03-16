@@ -9,6 +9,7 @@ const sharp = require("sharp");
 const mongoose = require("mongoose");
 const fetchUnsplashImage = require("../services/unsplash.service");
 const identifyPlantVision = require("../services/identifyPlantVision");
+const isPlantImage = require("../services/plant.service");
 const generatePlantDescription = require("../services/generatePlantDescription");
 plantRouter.get("/:id", userAuth, async (req, res) => {
 	try {
@@ -60,6 +61,16 @@ plantRouter.post(
 					};
 				}),
 			);
+
+			const isPlant = await isPlantImage(processedFiles);
+
+			if (!isPlant) {
+				return res.status(400).json({
+					success: false,
+					message:
+						"No plant detected in the provided images. Please upload a clear photo of a plant.",
+				});
+			}
 
 			let result = await identifyPlantVision(processedFiles, "gpt-4.1-mini");
 
