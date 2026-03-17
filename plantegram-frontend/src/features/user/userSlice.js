@@ -1,7 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../app/axiosInstance";
-import { setLastIdentifiedPlant } from "../plantIdentification/plantSlice";
-import { updateGardenBoard } from "../plants/savedPlantsSlice";
 
 export const fetchCurrentUser = createAsyncThunk(
 	"auth/fetchCurrentUser",
@@ -10,13 +8,7 @@ export const fetchCurrentUser = createAsyncThunk(
 			const response = await api.get("/user/me");
 
 			dispatch(setUser(response.data.data.user));
-			dispatch(setLastIdentifiedPlant(response.data.data.lastIdentifiedPlant));
-			dispatch(
-				updateGardenBoard({
-					totalSavedCount: response?.data?.data?.totalSavedCount,
-					savedPlantsSubset: response?.data?.data?.savedPlantsSubset,
-				}),
-			);
+
 			return response.data.user;
 		} catch (err) {
 			return rejectWithValue(null);
@@ -44,20 +36,16 @@ const userSlice = createSlice({
 			if (payload.profile !== undefined) {
 				state.profile = payload.profile;
 				state.emailId = payload.emailId ?? "";
-				state.savedPlantsIdsArray = payload.savedPlants ?? [];
 			} else {
-				const { emailId, savedPlants, ...profile } = payload;
+				const { emailId, ...profile } = payload;
 				state.profile = profile;
-
 				state.emailId = emailId;
-				state.savedPlantsIdsArray = savedPlants;
 			}
 		},
 
 		clearUser: (state) => {
 			state.profile = null;
 			state.emailId = "";
-			state.savedPlantsIdsArray = [];
 			state.error = null;
 		},
 	},
@@ -80,7 +68,6 @@ const userSlice = createSlice({
 			.addCase("auth/logoutUser/fulfilled", (state) => {
 				state.profile = null;
 				state.emailId = "";
-				state.savedPlantsIdsArray = [];
 				state.error = null;
 			});
 	},

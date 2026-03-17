@@ -21,12 +21,12 @@ export const getSavedPlants = createAsyncThunk(
 );
 
 const initialState = {
-	plants: [], 
-	page: 1, 
+	plants: [],
+	page: 1,
 	limit: 10,
-	hasMore: true, 
-	savedPlantsLoading: false, 
-	savedPlantsError: null, 
+	hasMore: true,
+	savedPlantsLoading: false,
+	savedPlantsError: null,
 	savedPlantsSubset: [],
 	totalSavedCount: 0,
 };

@@ -11,7 +11,9 @@ const http = require("http");
 app.use(
 	cors({
 		origin: function (origin, callback) {
-			const allowedOrigins = (process.env.FRONTEND_URL || "http://localhost:5173")
+			const allowedOrigins = (
+				process.env.FRONTEND_URL || "http://localhost:5173"
+			)
 				.split(",")
 				.map((o) => o.trim());
 			// Allow requests with no origin (mobile apps, curl, health checks)
@@ -31,13 +33,13 @@ app.use(cookieParser());
 
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
-
 const plantRouter = require("./routes/plant");
+const gardenBoardRouter = require("./routes/gardenBoard");
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
 
 app.use("/plant", plantRouter);
-
+app.use("/garden-board", gardenBoardRouter);
 app.get("/health", (req, res) => {
 	res.status(200).json({ status: "ok" });
 });

@@ -32,15 +32,15 @@ export const SavedPlantsIcon = (
 );
 
 export const PlantGreenLogo = ({
+	size = 24,
 	color = "currentColor",
 	className = "",
 	...props
 }) => {
 	return (
 		<svg
-			// Using 1em makes the icon match the surrounding text size
-			width='1.2em'
-			height='1.2em'
+			width={size}
+			height={size}
 			viewBox='0 0 100 100'
 			fill='none'
 			xmlns='http://www.w3.org/2000/svg'
@@ -51,16 +51,9 @@ export const PlantGreenLogo = ({
 				strokeWidth='5'
 				strokeLinecap='round'
 				strokeLinejoin='round'>
-				{/* Simplified Middle Leaf */}
 				<path d='M50 85 V30 M50 30 C40 35 35 45 35 55 S45 70 50 70 S65 65 65 55 S60 35 50 30' />
-
-				{/* Simplified Left Leaf */}
 				<path d='M50 70 C35 70 20 60 20 45 C20 45 40 40 50 65' />
-
-				{/* Simplified Right Leaf */}
 				<path d='M50 70 C65 70 80 60 80 45 C80 45 60 40 50 65' />
-
-				{/* Base Swirls */}
 				<path d='M50 85 C35 85 25 75 15 78 M50 85 C65 85 75 75 85 78' />
 			</g>
 		</svg>

@@ -1,9 +1,15 @@
-import HeroImage from "../../../assets/hero_image.jpg";
+import HeroImage from "../../../assets/heroImage.png";
 
 const Hero = () => {
 	return (
-		<div>
-			<img className='w-screen h-screen object-cover' src={HeroImage} />{" "}
+		<div className='relative w-screen h-screen'>
+			<img className='w-full h-full object-cover' src={HeroImage} alt='Hero' />
+
+			<div className='absolute inset-0 flex items-center justify-center'>
+				<h1 className='text-textHeading font-montserrat text-6xl font-semibold tracking-wide'>
+					PLANTEGRAM
+				</h1>
+			</div>
 		</div>
 	);
 };

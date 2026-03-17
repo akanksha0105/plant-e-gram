@@ -11,7 +11,12 @@ const Sidebar = ({ setActiveState }) => {
 	// Sync activeState to parent whenever route changes
 	useEffect(() => {
 		const match = navigation.find(({ to }) => to === location.pathname);
-		if (match) setActiveState(match.label);
+
+		if (match) {
+			setActiveState(match.label);
+		} else {
+			setActiveState(null);
+		}
 	}, [location.pathname]);
 
 	useEffect(() => {

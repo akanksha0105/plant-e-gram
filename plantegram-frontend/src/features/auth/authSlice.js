@@ -53,13 +53,6 @@ const authSlice = createSlice({
 	name: "auth",
 	initialState,
 
-	reducers: {
-		logout: (state) => {
-			state.isAuthenticated = false;
-			state.error = null;
-		},
-	},
-
 	extraReducers: (builder) => {
 		const handlePending = (state) => {
 			state.loading = true;

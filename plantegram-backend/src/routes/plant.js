@@ -9,17 +9,16 @@ const sharp = require("sharp");
 const mongoose = require("mongoose");
 const fetchUnsplashImage = require("../services/unsplash.service");
 const identifyPlantVision = require("../services/identifyPlantVision");
+const isPlantImage = require("../services/plant.service");
 const generatePlantDescription = require("../services/generatePlantDescription");
 plantRouter.get("/:id", userAuth, async (req, res) => {
 	try {
 		const { id } = req.params;
 
-		// 1️⃣ Validate MongoDB ObjectId
 		if (!mongoose.Types.ObjectId.isValid(id)) {
 			return res.status(400).json({ message: "Invalid Plant ID" });
 		}
 
-		// 2️⃣ Find plant
 		const plant = await Plant.findById(id);
 
 		if (!plant) {
@@ -38,9 +37,8 @@ plantRouter.post(
 	userAuth,
 	upload.array("images", 5),
 	async (req, res, next) => {
-		console.log("identification", req.body.emailId);
 		try {
-			// ✅ Validate images
+			// Validate images
 			if (!req.files || req.files.length === 0) {
 				return res.status(400).json({
 					success: false,
@@ -48,7 +46,7 @@ plantRouter.post(
 				});
 			}
 
-			// ✅ Resize & compress before OpenAI (CRITICAL)
+			// Resize & compress before OpenAI (CRITICAL)
 			const processedFiles = await Promise.all(
 				req.files.map(async (file) => {
 					const resizedBuffer = await sharp(file.buffer)
@@ -62,6 +60,16 @@ plantRouter.post(
 					};
 				}),
 			);
+
+			const isPlant = await isPlantImage(processedFiles);
+
+			if (!isPlant) {
+				return res.status(400).json({
+					success: false,
+					message:
+						"No plant detected in the provided images. Please upload a clear photo of a plant.",
+				});
+			}
 
 			let result = await identifyPlantVision(processedFiles, "gpt-4.1-mini");
 
@@ -97,9 +105,6 @@ plantRouter.post(
 				scientificName: result.scientificName,
 			});
 
-			// const user = await User.findOne({ emailId: req.body.emailId });
-			const user = req.user;
-
 			const plantDoc = await Plant.create({
 				commonName: result.commonName,
 				scientificName: result.scientificName,
@@ -109,8 +114,9 @@ plantRouter.post(
 				userIds: [req.user._id],
 			});
 
-			await User.findByIdAndUpdate(user._id, {
+			await User.findByIdAndUpdate(req.user._id, {
 				$addToSet: { savedPlants: plantDoc._id },
+				$set: { lastIdentifiedPlant: plantDoc._id },
 			});
 
 			return res.json({
