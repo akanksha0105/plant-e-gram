@@ -9,6 +9,7 @@ export default function Login() {
 		password: "",
 	});
 
+	const [errorMessage, setErrorMessage] = useState("");
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -27,6 +28,7 @@ export default function Login() {
 			navigate("/garden-board", { replace: true });
 		} catch (err) {
 			console.error("Login failed:", err);
+			setErrorMessage(err);
 		}
 	};
 
@@ -40,6 +42,11 @@ export default function Login() {
 					</h2>
 
 					<form onSubmit={handleLogin} className='space-y-9'>
+						{errorMessage && (
+							<div className='text-red-600 text-sm p-3 mb-4 rounded text-center'>
+								{errorMessage}
+							</div>
+						)}
 						<input
 							name='emailId'
 							type='email'

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { validateField } from "../../../utils/validation";
 import { useDispatch } from "react-redux";
@@ -17,6 +17,7 @@ const Signup = () => {
 
 	const [errors, setErrors] = useState({});
 	const [touched, setTouched] = useState({});
+	const [errorMessage, setErrorMessage] = useState("");
 
 	// Check if form valid
 	const isFormValid =
@@ -57,7 +58,6 @@ const Signup = () => {
 		}));
 	};
 
-	// Handle submit
 	const handleRegisteration = async (e) => {
 		e.preventDefault();
 
@@ -67,7 +67,8 @@ const Signup = () => {
 			await dispatch(registerUser(formData)).unwrap();
 			navigate("/garden-board");
 		} catch (err) {
-			console.log(err);
+			console.error("Error Message in Signup", err);
+			setErrorMessage(err);
 		}
 	};
 
@@ -81,6 +82,11 @@ const Signup = () => {
 					</h2>
 
 					<form onSubmit={handleRegisteration}>
+						{errorMessage && (
+							<div className=' text-red-600 text-sm p-3 mb-4 rounded text-center'>
+								{errorMessage}
+							</div>
+						)}
 						{/* Email */}
 						<div className='mb-2 relative'>
 							<input
@@ -185,12 +191,6 @@ const Signup = () => {
 						<button
 							type='submit'
 							disabled={!isFormValid}
-							// 	className={`w-full py-2 rounded-lg text-sm mb-4
-							// ${
-							// 	isFormValid
-							// 		? "bg-blue-500 text-white"
-							// 		: "bg-blue-200 text-gray-500 cursor-not-allowed"
-							// }`}
 							className='w-full mt-6 py-4 text-base font-semibold uppercase tracking-wide
 								transition-all duration-500
 								bg-[linear-gradient(to_right,#EC6F66_0%,#F3A183_51%,#EC6F66_100%)]
